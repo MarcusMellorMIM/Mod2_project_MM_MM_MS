@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FootballApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <%= link_to "home", home_page_path %>
+  <%= link_to "players", players_path %>
+  <%= link_to "teams", teams_path %>
+  <%= link_to "competitions", competitions_path %>
+    <%= yield %>
+  </body>
+</html>
