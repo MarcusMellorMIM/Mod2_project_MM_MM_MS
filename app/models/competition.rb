@@ -26,7 +26,7 @@ class Competition < ApplicationRecord
         else
           team2 = team1
         end 
-        match_hash = { competition_id: self.id, home_team_id:team1, away_team_id:team2, round_no: 1 }
+        match_hash = { competition_id: self.id, home_team_id:team1, away_team_id:team2, round_no: 1   }
         match_array << match_hash 
       end
       match_array
@@ -34,21 +34,54 @@ class Competition < ApplicationRecord
 
 
   def generate_season 
-     match_array = []
-
+     match_array = [] # Will capture all of the matches
     # Get the teams into an array, so we can manipulate them
-      team_array = self.teams.map {|team| team.id }
-      if team_array.length.mod(2)>0
-        team_array << nil
-      end 
-      
+      team_array = self.teams.map {|team| team.id } # Get the team ids into an array
 
-      
-      rounds = (team_array.length * 2) - 2
-      matches = (team_array.length / 2)
+    # Set the variables for the  1st week,
+      home_index=0
+      away_index=team_array.length-1
+      inround_iterations=(team_array.length) / 2
+      incampaign_iterations=team_array.length / 2 # will build half the rounds
+      round_no = 0
 
-      
+# Plan is to increase home, and reduce away creating unique matches
+    incampaign_iterations.times do
+      round_no = round_no+1
+      inround_iterations.times do
+        match_hash = { competition_id: self.id, home_team_id:team_array[home_index], away_team_id:team_array[away_index], round_no: round_no*2   }
+        match_array << match_hash
+        home_index=home_index+1 
+        away_index=away_index-1
+        if home_index>team_array.length-1 
+          home_index=0 
+        end
+        if away_index<0 
+          away_index = team_array.length-1 
+        end 
 
-  end 
+      end # End of weekly iteration
+      home_index=round_no # Moves the start of the index to the next match
+      away_index=round_no-1 # We dont need to check if the away index needs to be 0 here
+
+   end # End of campaign iteration
+
+  # We should create these matches, then iterate over the hash array, swopping the home away teams etc
+  # and then reduce the round_no by 1
+
+# UPTO HERE .... THE FOLLOWING MAKES THE CODE STICK ... NEED RTO FIGURE IT OUT
+#    match2_array = match_array
+#    match_array.each do |match|
+#      match_hash = { competition_id: self.id, home_team_id:match[:away_team_id], away_team_id:match[:home_team_id], round_no: match[:round_no]-1 }
+#      match2_array << match_hash
+#    end 
+
+    match_array # Push into Match.create 
+    # Great debuggers
+#    c2 = Competition.last
+ #   myarray=c2.generate_matches
+    # c2.teams.map {|t| t.id }
+    # myarray.map {|round| puts "#{round[:round_no]} #{round[:home_team_id]} #{round[:away_team_id]}" }
+  end  # End of season generator
 
 end
