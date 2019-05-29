@@ -18,5 +18,5 @@
 <p>Midfielder Skills: <%= @player.midfielder_skill %></p>
 <p>Striker Skills: <%= @player.striker_skill %></p>
 
-<%= link_to 'Edit Player', edit_player_path %>
+<%= button_to 'Edit Player', edit_player_path(@player), :method => :get %>
 <%= button_to "Delete Player", { action: "destroy", id: @player.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
