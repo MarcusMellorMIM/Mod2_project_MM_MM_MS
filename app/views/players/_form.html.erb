@@ -1,0 +1,56 @@
+<%= form_for @player do |f| %>
+  <%= f.label :name  %>
+  <%= f.text_field :name %>
+  <br>
+  <br>
+
+  <%= f.label :team_ids, "Team" %>
+  <br>
+  <%= f.collection_check_boxes :team_ids, Team.all, :id, :name %> 
+  <br>
+  <br>
+
+  <%= f.label :dob, "Date of Birth" %>
+  <%= f.date_field :dob %>
+  <br>
+  <br>
+
+  <%= f.label :gender  %>
+  <%= f.select :gender, ["Male", "Female"] %>
+  <br>
+  <br>
+  
+
+  <%= f.label :height_cm, "Height" %>
+  <%= f.number_field :height_cm, in: 155..210 %>
+  <br>
+  <br>
+
+  <%= f.label :weight_kg, "Weight" %>
+  <%= f.number_field :weight_kg, in: 60..120, step: 0.5 %>
+  <br>
+  <br>
+
+  <%= f.label :goalkeeper_skill, "Goalkeeper Skills" %>
+  <%= f.range_field :goalkeeper_skill, in: 1..100 %>
+  <br>
+  <br>
+
+  <%= f.label :defender_skill, "Defender Skills" %>
+  <%= f.range_field :defender_skill, in: 1..100 %>
+  <br>
+  <br>
+
+  <%= f.label :midfielder_skill, "Midfielder Skills" %>
+  <%= f.range_field :midfielder_skill, in: 1..100 %>
+  <br>
+  <br>
+
+  <%= f.label :striker_skill, "Striker Skills" %>
+  <%= f.range_field :striker_skill, in: 1..100 %>
+  <br>
+  <br>
+
+  <%= f.submit %>
+
+<% end %>
