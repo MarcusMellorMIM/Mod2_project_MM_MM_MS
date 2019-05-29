@@ -8,6 +8,11 @@
    <p><%= link_to player.name, player_path(player) %></p>
    <% end %>
   <% end %>
+  <br>
+
+<%= form_tag("/squads/new", method: "GET") %>
+<%= hidden_field_tag :team_id, @team.id%>
+<%= submit_tag "Add players to this team"%>
 
 <h3>Campaigns: </h3>
 <% if @team.competitions.length == 0 %>

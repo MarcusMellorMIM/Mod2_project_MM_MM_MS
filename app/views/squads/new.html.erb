@@ -1,0 +1,9 @@
+<h1> Add Players to <%= @team.name %></h1>
+
+<%= form_tag("/squads", method: "POST") %>
+<%= hidden_field_tag "team_id", @team.id %>
+<%= label_tag "Select Players:" %>
+<% @available_players.each do |player| %>
+  <p><%= player.name %><%= check_box_tag 'player_ids[]', player.id %></p>
+<% end %>
+<%= submit_tag "Add Players" %>
