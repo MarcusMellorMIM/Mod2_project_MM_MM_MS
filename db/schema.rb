@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2019_05_28_092429) do
-=======
 ActiveRecord::Schema.define(version: 2019_05_29_082512) do
->>>>>>> f601ba7e7e857574d690e5dbca1429ce4dee65c9
 
   create_table "campaigns", force: :cascade do |t|
     t.integer "team_id"

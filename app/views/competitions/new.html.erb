@@ -1,0 +1,13 @@
+<h2>create a new competition</h2>
+<%= form_for @competition do |f| %>
+    <%= f.label :name  %>
+    <%= f.text_field :name %>
+    <br>
+    <%= f.label :knockout %>
+    <%= f.check_box :knockout %><br>
+    
+    <%= f.label :team_ids, "Team" %>
+    <%= f.collection_check_boxes :team_ids, Team.all, :id, :name %>
+    <br><%= f.submit "create"%>
+    <%end%>
+    
