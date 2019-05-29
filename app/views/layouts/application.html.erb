@@ -5,15 +5,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-  <%= link_to "home", home_page_path %>
-  <%= link_to "players", players_path %>
-  <%= link_to "teams", teams_path %>
-  <%= link_to "competitions", competitions_path %>
+
+  <button type="button" class="btn btn-outline-success"><%= link_to "Home", home_page_path, :class=>"text-success" %></button>
+  <button type="button" class="btn btn-outline-success"><%= link_to "Players", players_path, :class=>"text-success" %></button>
+  <button type="button" class="btn btn-outline-success"><%= link_to "Teams", teams_path, :class=>"text-success" %></button>
+  <button type="button" class="btn btn-outline-success"><%= link_to "Competitions", competitions_path, :class=>"text-success" %></button>
+
 
   <% if flash[:errors] %>
         <% flash[:errors].each do |error| %>
