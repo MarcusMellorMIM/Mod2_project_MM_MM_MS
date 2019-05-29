@@ -5,13 +5,11 @@ class CompetitionsController < ApplicationController
 
   def index
     @competitions = Competition.all
-
   end
 
 
   def new
     @competition = Competition.new
-
   end
 
   def show
@@ -56,10 +54,9 @@ end
 
 
   def destroy
-  @competition.destroy
-  redirect_to competitions_path
-end 
-
+    @competition.destroy
+    redirect_to competitions_path
+  end 
 
   private
 
@@ -70,5 +67,6 @@ end
   def competition_params
     params.require(:competition).permit(:name,:knockout)
   end
+  
 end
 

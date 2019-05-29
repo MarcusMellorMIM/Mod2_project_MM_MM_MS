@@ -4,12 +4,6 @@ Away <%= @match.away_team.name %>
 </h1>
 
 <p>
-<%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
-<%= submit_tag "Play the match" %>
-<% end %>
-</p>
-
-<p>
 Playing in the <%= @match.competition.name%>
 <% if @match.competition.knockout %>
 knockout competition
@@ -18,49 +12,9 @@ league
 <% end %>
 </p>
 
-<div class = hometeam >
-<p>
-Playing for <%= link_to @match.home_team.name, @match.home_team  %>
-</p>
-<ul>
-<% @match.home_team.players.each do |hp| %>
-<li><%= link_to hp.name, hp %></li>
+<% if @match.match_formations.length==0 %>
+<%= render "showmatch1" %>
+<% else %>
+<%= render "showmatch2" %>
 <% end %>
-</ul>
 
-</div>
-
-<div class = awayteam >
-<p>
-Playing for <%= link_to @match.away_team.name, @match.away_team%> 
-</p>
-
-<ul>
-<% @match.away_team.players.each do |ap| %>
-<li><%= link_to ap.name, ap %></li>
-<% end %>
-</ul>
-
-</div>
-
-<div class = homestats>
-<p>
-<%= @match.home_team.name %> Statistics
-<ul>
-<li>Goal rating <%= @match.home_team.players.map {|p| p.goalkeeper_skill}.sum %></li>
-<li>Defence rating <%= @match.home_team.players.map {|p| p.defender_skill}.sum %></li>
-<li>Midfield mayhem <%= @match.home_team.players.map {|p| p.midfielder_skill}.sum %></li>
-<li>Striker power <%= @match.home_team.players.map {|p| p.striker_skill}.sum %></li>
-</p>
-</div>
-
-<div class = awaystats>
-<p>
-<%= @match.away_team.name %> Statistics
-<ul>
-<li>Goal rating <%= @match.away_team.players.map {|p| p.goalkeeper_skill}.sum %></li>
-<li>Defence rating <%= @match.away_team.players.map {|p| p.defender_skill}.sum %></li>
-<li>Midfield mayhem <%= @match.away_team.players.map {|p| p.midfielder_skill}.sum %></li>
-<li>Striker power <%= @match.away_team.players.map {|p| p.striker_skill}.sum %></li>
-</p>
-</div>

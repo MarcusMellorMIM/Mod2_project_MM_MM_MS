@@ -1,0 +1,9 @@
+<h1> Join <%= @team.name %> in competitions</h1>
+
+<%= form_tag("/campaigns", method: "POST") %>
+<%= hidden_field_tag "team_id", @team.id %>
+<%= label_tag "Select Competitions:" %>
+<% Competition.all.each do |competition| %>
+  <p><%= competition.name %><%= check_box_tag 'competition_ids[]', competition.id %></p>
+<% end %>
+<%= submit_tag "Add Competitions" %>

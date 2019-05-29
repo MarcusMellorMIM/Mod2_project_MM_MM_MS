@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_29_082512) do
+ActiveRecord::Schema.define(version: 2019_05_29_161030) do
 
   create_table "campaigns", force: :cascade do |t|
     t.integer "team_id"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 2019_05_29_082512) do
     t.boolean "knockout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "match_formations", force: :cascade do |t|
+    t.integer "match_id"
+    t.integer "player_id"
+    t.string "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "team_id"
+    t.integer "skill_index"
   end
 
   create_table "matches", force: :cascade do |t|
