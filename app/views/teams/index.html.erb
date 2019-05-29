@@ -1,5 +1,7 @@
 <h1>All Teams ⚽️</h1>
 
+<%= button_to 'Create a Team', new_team_path, :method => :get  %>
+
 <% @teams.each do |team| %>
   <ul><li><%= link_to team.name, team %></li></ul>
 <% end %>
