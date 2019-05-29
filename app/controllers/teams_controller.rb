@@ -1,10 +1,9 @@
 class TeamsController < ApplicationController
-  before_action :find_team, only:[:show,:edit,:update,:destroy]
+  before_action :find_team, only: [:show,:edit,:update,:destroy]
 
   def index
     @teams = Team.all
   end
-
 
   def new
     @team = Team.new
@@ -43,7 +42,7 @@ class TeamsController < ApplicationController
   private
 
   def find_team
-    Team.find(params[:id])
+    @team = Team.find(params[:id])
   end
 
   def team_params
