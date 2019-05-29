@@ -12,7 +12,8 @@ class SquadsController < ApplicationController
 
   def new
     @squad = Squad.new
-
+    @available_players = Player.all.select{|player| player.teams == []}
+    @team = Team.find(params[:team_id])
   end
 
   def show
@@ -20,14 +21,18 @@ class SquadsController < ApplicationController
   end
 
   def create
-    @squad = squad.new(squad_params)
-    if @squad.valid?
-      @squad.save
-      redirect_to squad_path(@squad)
-    else
-      flash[:errors]=@squad.errors.full_messages
-      redirect_to new_squad_path
+    params[:player_ids].each do |player_id|
+      Squad.create({:team_id => params[:team_id], :player_id => player_id})
     end
+    redirect_to team_path(params[:team_id])
+    # @squad = squad.new(squad_params)
+    # if @squad.valid?
+    #   @squad.save
+    #   redirect_to squad_path(@squad)
+    # else
+    #   flash[:errors]=@squad.errors.full_messages
+    #   redirect_to new_squad_path
+    # end
   end
 
   def update
