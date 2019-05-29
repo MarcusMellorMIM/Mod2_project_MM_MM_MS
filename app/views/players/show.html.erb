@@ -4,7 +4,7 @@
   "This player does not have a team"
   <% else %>
    <% @player.teams.each do |team| %>
-   <%= team.name %> 
+   <%= link_to team.name, team_path(team) %> 
    <% end %>
   <% end %></h3>
 

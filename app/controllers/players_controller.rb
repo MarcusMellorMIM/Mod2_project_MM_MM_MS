@@ -35,6 +35,17 @@ class PlayersController < ApplicationController
   end
 
   def update
+    if @player.teams.length > 0
+      @player.squads.each do |squad|
+        squad.destroy
+      end
+    end
+    if params[:player][:team_ids].length > 1
+      team_ids = params[:player][:team_ids].slice(1..params[:player][:team_ids].length)
+      team_ids.each do |team_id|
+        Squad.create(player_id: @player.id, team_id: team_id.to_i)
+      end
+    end
     @player.update player_params
     redirect_to @player
   end

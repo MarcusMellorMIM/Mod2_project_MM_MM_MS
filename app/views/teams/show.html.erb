@@ -1,0 +1,26 @@
+<h1><%= @team.name %></h1>
+
+<h3>Squad:</h3>
+ <% if @team.players.length == 0 %>
+  "This Team does not have players"
+  <% else %>
+   <% @team.players.each do |player| %>
+   <p><%= link_to player.name, player_path(player) %></p>
+   <% end %>
+  <% end %>
+  <br>
+
+<%= form_tag("/squads/new", method: "GET") %>
+<%= hidden_field_tag :team_id, @team.id%>
+<%= submit_tag "Add players to this team"%>
+
+<h3>Campaigns: </h3>
+<% if @team.competitions.length == 0 %>
+  "This Team is not participating in any competition"
+  <% else %>
+   <% @team.competitions.each do |competition| %>
+   <p><%= link_to competition.name, competition_path(competition) %></p>
+   <% end %>
+  <% end %>
+<%# <%= button_to 'Edit Player', edit_player_path(@player), :method => :get %>
+<%# <%= button_to "Delete Player", { action: "destroy", id: @player.id }, method: :delete, data: { confirm: "Are you sure?"  } %>

@@ -1,14 +1,15 @@
 class TeamsController < ApplicationController
+<<<<<<< HEAD
+=======
+  before_action :find_team, only: [:show,:edit,:update,:destroy]
+>>>>>>> f601ba7e7e857574d690e5dbca1429ce4dee65c9
 
   def index
     @teams = Team.all
-
   end
-
 
   def new
     @team = Team.new
-
   end
 
   def show
@@ -37,16 +38,25 @@ class TeamsController < ApplicationController
 
 
   def destroy
+<<<<<<< HEAD
   @team.destroy
   redirect_to teams_path
 end 
 
+=======
+    @team.destroy
+    redirect_to teams_path
+  end 
+>>>>>>> f601ba7e7e857574d690e5dbca1429ce4dee65c9
 
-  
   private
 
   def find_team
+<<<<<<< HEAD
     @team=Team.find(params[:id])
+=======
+    @team = Team.find(params[:id])
+>>>>>>> f601ba7e7e857574d690e5dbca1429ce4dee65c9
   end
 
   def team_params
