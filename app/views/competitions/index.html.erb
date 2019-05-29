@@ -1,1 +1,4 @@
 <h1>All Competitions ⚽️</h1>
+<% @competitions.each do |competition| %>
+    <ul><li><%= link_to competition.name, competition %></li></ul>
+  <% end %>

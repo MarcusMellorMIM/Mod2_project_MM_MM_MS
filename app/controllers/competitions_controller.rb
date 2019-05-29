@@ -1,6 +1,6 @@
 class CompetitionsController < ApplicationController
 
-  before_action :find_competitions, only:[:show,:edit,:update,:destroy]
+  before_action :find_competition, only:[:show,:edit,:update,:destroy]
 
 
   def index
@@ -15,7 +15,6 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    @competition = Competition.find_competition
   end
 
   def create
@@ -41,17 +40,15 @@ class CompetitionsController < ApplicationController
 
 
   def destroy
-  @competition = Competition.find_competition
   @competition.destroy
   redirect_to competitions_path
 end 
 
 
-  
   private
 
   def find_competition
-    Competition.find(params[:id])
+    @competition = Competition.find(params[:id])
   end
 
   def competition_params
@@ -59,4 +56,3 @@ end
   end
 end
 
-end
