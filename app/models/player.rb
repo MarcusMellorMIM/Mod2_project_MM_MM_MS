@@ -4,6 +4,5 @@ class Player < ApplicationRecord
   has_many :campaigns, through: :teams
   has_many :competitions, through: :campaigns 
   has_many :matches, through: :competitions
-  
  
 end
