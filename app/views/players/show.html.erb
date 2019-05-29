@@ -1,0 +1,22 @@
+<h1><%= @player.name %></h1>
+
+<h3>Team: <% if @player.teams.length == 0 %>
+  "This player does not have a team"
+  <% else %>
+   <% @player.teams.each do |team| %>
+   <%= team.name %> 
+   <% end %>
+  <% end %></h3>
+
+<p>Date of Birth: <%= @player.dob %></p>
+<p>Gender: <%= @player.gender %></p>
+<p>Height: <%= @player.height_cm %>cm</p>
+<p>Weight: <%= @player.weight_kg %>kg</p>
+<br>
+<p>Goalkeeper Skills: <%= @player.goalkeeper_skill %></p>
+<p>Defender Skills: <%= @player.defender_skill %></p>
+<p>Midfielder Skills: <%= @player.midfielder_skill %></p>
+<p>Striker Skills: <%= @player.striker_skill %></p>
+
+<%= button_to 'Edit Player', edit_player_path(@player), :method => :get %>
+<%= button_to "Delete Player", { action: "destroy", id: @player.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
