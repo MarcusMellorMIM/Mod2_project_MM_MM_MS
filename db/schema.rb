@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_152054) do
+ActiveRecord::Schema.define(version: 2019_05_29_082512) do
 
   create_table "campaigns", force: :cascade do |t|
     t.integer "team_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_152054) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "round_no"
+    t.integer "sequence_no"
     t.index ["competition_id"], name: "index_matches_on_competition_id"
   end
 
