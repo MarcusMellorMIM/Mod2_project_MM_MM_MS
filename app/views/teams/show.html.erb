@@ -4,10 +4,15 @@
  <% if @team.players.length == 0 %>
   "This Team does not have players"
   <% else %>
-   <% @team.players.each do |player| %>
-   <p><%= link_to player.name, player_path(player) %></p>
-   <% end %>
+   <ul>
+   <% @team.squads.each do |squad| %>
+   <li>
+      <%= link_to squad.player.name, player_path(squad.player) %>
+          <%= button_to "Remove player from the squad", squad, :method => :delete %>
+      <% end %>
+    </li>
   <% end %>
+  </ul>
   <br>
 
 <%= form_tag("/squads/new", method: "GET") %>

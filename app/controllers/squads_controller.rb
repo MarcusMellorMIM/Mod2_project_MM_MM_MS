@@ -47,9 +47,9 @@ class SquadsController < ApplicationController
 
 
   def destroy
-  @squad = Squad.find_squad
-  @squad.destroy
-  redirect_to squads_path
+    team = Team.find(@squad.team_id)
+    @squad.destroy
+    redirect_to team_path(team)
 end 
 
 
@@ -57,7 +57,7 @@ end
   private
 
   def find_squad
-    Squad.find(params[:id])
+    @squad = Squad.find(params[:id])
   end
 
   def squad_params
