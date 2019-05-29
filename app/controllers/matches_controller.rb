@@ -12,6 +12,9 @@ class MatchesController < ApplicationController
       @match = Match.find(params[:id])
     end 
 
-    
+    def update
+      @match = Match.find(params[:id])
+      redirect_to @match
+    end
 
 end
