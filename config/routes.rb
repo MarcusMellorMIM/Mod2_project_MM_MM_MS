@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :teams
   resources :campaigns
   resources :matches
-  resources :squads
+  resources :squads, only: [:new, :create, :edit, :update, :destroy]
   resources :players
   
  
