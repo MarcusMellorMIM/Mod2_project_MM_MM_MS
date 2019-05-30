@@ -3,5 +3,5 @@
 <%= button_to 'Create a Team', new_team_path, :method => :get  %>
 
 <% @teams.each do |team| %>
-  <ul><li><%= link_to team.name, team %></li></ul>
+  <p><%= link_to team.name, team %></p>
 <% end %>
