@@ -12,10 +12,12 @@
 
   <body>
 
-  <button type="button" class="btn btn-outline-success"><%= link_to "Home", home_page_path, :class=>"text-success" %></button>
-  <button type="button" class="btn btn-outline-success"><%= link_to "Players", players_path, :class=>"text-success" %></button>
-  <button type="button" class="btn btn-outline-success"><%= link_to "Teams", teams_path, :class=>"text-success" %></button>
-  <button type="button" class="btn btn-outline-success"><%= link_to "Competitions", competitions_path, :class=>"text-success" %></button>
+  <h1 class="logo">EasyPitch ⚽️</h1>
+
+  <button type="button" class="btn btn-light"><%= link_to "Home", home_page_path, :class=>"text-success" %></button>
+  <button type="button" class="btn btn-light"><%= link_to "Players", players_path, :class=>"text-success" %></button>
+  <button type="button" class="btn btn-light"><%= link_to "Teams", teams_path, :class=>"text-success" %></button>
+  <button type="button" class="btn btn-light"><%= link_to "Competitions", competitions_path, :class=>"text-success" %></button>
 
 
   <% if flash[:errors] %>
