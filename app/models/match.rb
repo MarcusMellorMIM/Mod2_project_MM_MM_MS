@@ -55,7 +55,7 @@ class Match < ApplicationRecord
         if this_match_winner && other_match.winner 
           Match.create(home_team_id:this_match_winner, away_team_id:other_match_winner, round_no:self.round_no+1, sequence_no:self.sequence_no/2, competition_id:competition.id ) 
        end
-      end 
+      end
     end
   end
 
@@ -175,20 +175,26 @@ class Match < ApplicationRecord
 
     defender_qty.times do
       player = team.sort {|a,b| b.defender_skill <=> a.defender_skill}.first
-      team.delete(player)
-      MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Defender", skill_index:player.defender_skill)
+      if player
+        team.delete(player)
+         MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Defender", skill_index:player.defender_skill)
+      end
     end 
 
     midfield_qty.times do
       player = team.sort {|a,b| b.midfielder_skill <=> a.midfielder_skill}.first
-      team.delete(player)
-      MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Midfield", skill_index:player.midfielder_skill )
+      if player
+        team.delete(player)
+       MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Midfield", skill_index:player.midfielder_skill )
+      end 
     end
 
    striker_qty.times do
       player = team.sort {|a,b| b.striker_skill <=> a.striker_skill}.first
-      team.delete(player)
-      MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Striker", skill_index:player.striker_skill)
+      if player
+        team.delete(player)
+        MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Striker", skill_index:player.striker_skill)
+      end 
     end
 
     end # No players in the team
