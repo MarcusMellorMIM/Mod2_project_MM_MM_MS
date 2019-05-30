@@ -8,6 +8,6 @@
     
     <%= f.label :team_ids, "Team" %>
     <%= f.collection_check_boxes :team_ids, Team.all, :id, :name %>
-    <br><%= f.submit "create"%>
+    <br><%= f.submit "update"%>
     <%end%>
 <br><%= link_to 'go back competiton', competition_path(@competition) %></br>
