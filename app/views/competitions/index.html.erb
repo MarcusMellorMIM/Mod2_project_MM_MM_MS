@@ -2,3 +2,5 @@
 <% @competitions.each do |competition| %>
     <ul><li><%= link_to competition.name, competition %></li></ul>
   <% end %>
+  <%= link_to "create a new competition", new_competition_path%>
+  
