@@ -24,6 +24,9 @@ class TeamsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
     @team.update(team_params)
     if @team.valid?
@@ -36,9 +39,28 @@ class TeamsController < ApplicationController
 
 
   def destroy
-    @team.destroy
+    if @team.players.length > 0 
+      @team.squads.each do |squad|
+        squad.destroy
+      end
+        if @team.competitions.length > 0
+          @team.campaigns.each do |campaign|
+            campaign.destroy
+            @team.destroy
+          end
+      else
+        @team.destroy
+      end
+    elsif @team.competitions.length > 0
+      @team.campaigns.each do |campaign|
+        campaign.destroy
+        @team.destroy
+      end
+    else
+      @team.destroy
+    end
     redirect_to teams_path
-  end 
+  end
 
   private
 

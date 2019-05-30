@@ -1,5 +1,8 @@
 <h1><%= @team.name %></h1>
 
+<%= button_to 'Edit Team', edit_team_path(@team), :method => :get %>
+<%= button_to "Delete Team", { action: "destroy", id: @team.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
+
 <h3>Squad:</h3>
  <% if @team.players.length == 0 %>
   "This Team does not have players"
