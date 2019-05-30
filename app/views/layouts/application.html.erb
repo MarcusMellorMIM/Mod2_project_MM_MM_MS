@@ -12,7 +12,18 @@
 
   <body>
 
-  <h1 class="logo">️⚽EasyPitch⚽</h1>
+  <% if logged_in?  %>
+    <p>
+      Hello, <%= current_user.username %>!
+    <button type="button" class="btn btn-outline-success"><%= link_to "Logout", sessions_path, method: :delete %></button>
+    </p>
+  <% else %>
+    <button type="button" class="btn btn-outline-success"><%= link_to "Login", login_path %></button>
+    <button type="button" class="btn btn-outline-success"><%= link_to "Create an Account", new_user_path %></button>
+  <% end %>
+
+
+  <h1>⚽EasyPitch⚽</h1>
 
   <button type="button" class="btn btn-light"><%= link_to "Home", home_page_path, :class=>"text-success" %></button>
   <button type="button" class="btn btn-light"><%= link_to "Players", players_path, :class=>"text-success" %></button>

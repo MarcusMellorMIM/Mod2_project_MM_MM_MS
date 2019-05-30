@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_30_080239) do
+ActiveRecord::Schema.define(version: 2019_05_30_103327) do
 
   create_table "campaigns", force: :cascade do |t|
     t.integer "team_id"
@@ -76,6 +76,13 @@ ActiveRecord::Schema.define(version: 2019_05_30_080239) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

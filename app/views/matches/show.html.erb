@@ -4,7 +4,7 @@ Away <%= @match.away_team.name %>
 </h1>
 
 <p>
-Playing in the <%= @match.competition.name%>
+Playing in the <%= link_to @match.competition.name, @match.competition %>
 <% if @match.competition.knockout %>
 knockout competition
 <% else %>

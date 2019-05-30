@@ -30,10 +30,7 @@
 
 a:link {
   color: black;
-  text-align: center; 
-  text-decoration: none;
-  display: inline-block;
-  font-size: 20px;
+
 }
 
 a:visited {
@@ -46,7 +43,7 @@ a:hover {
 
 * {
   font-weight: bold;
-  font-size: 20px
+  font-size: 20px;
   
 }
 
@@ -88,8 +85,4 @@ a:hover {
   font-variant: small-caps;
   font-weight: bold;
   color: black;
-}
-
-.btn btn-light {
-
 }

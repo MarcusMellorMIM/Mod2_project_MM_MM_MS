@@ -1,29 +1,35 @@
 <h1>competition:<%= @competition.name %></h1>
 
-<% if @competition.teams.length == 0 %>
-  <h3>No teams play for this <%=@competition.name%></h3>
-  <% else %>
-   <% @competition.teams.each do |team| %>
-   <%= link_to team.name, team_path(team) %> 
-   <% end %>
-  <% end %></h3
-
-<h2>teams play for <%=@competition.name%> </h2>
-<%@competition.campaigns.each do |campaign|%>
-   <ul> <%=link_to campaign.team.name, campaign.team%></ul>
-  <%end%>
-<%if @competition.matches.length == 0 %>
-  <h2>above team does not have a match to play</h2>
-  <%else%>
-   <h2><%=@competition.matches.length%>  match for above teams.
-   <% @competition.matches.each do |match| %>
-    <h3>home team:<%=link_to match.home_team.name, match %> away team:<%=link_to match.away_team.name, match %> <%=link_to "show match", match%>
-  <%end%>
-  <%end%>
-
     <%= button_to 'Edit competition', edit_competition_path(@competition), :method => :get %>
     <%= button_to "Delete competition", { action: "destroy", id: @competition.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
     <%= form_tag("/matchesgenerator", method: "POST") do %>
     <%= hidden_field_tag :id, @competition.id %>
     <%= submit_tag "Generate Matches" %>
     <% end %>
+
+<h2>teams play for <%=@competition.name%> </h2>
+<ul>
+<%@competition.campaigns.each do |campaign|%>
+   <li> <%=link_to campaign.team.name, campaign.team%></li>
+  <%end%>
+</ul>
+
+  <%if @competition.matches.length == 0 %>
+    <h2>Press Generate Matches to start the competition</h2>
+  <%else%>
+  
+   <p><%=@competition.matches.length%>  matches.</p>
+
+
+  <div class=round_no >
+
+    <ul>
+     <% @competition.matches.each do |match| %>
+     <div class=match >
+      <li><%=link_to match.home_team.name, match.home_team %> to play <%=link_to match.away_team.name, match.away_team %> <%= match.match_result_text %> <%= match.match_result %> <%=link_to "[MATCH]", match%></li>
+      </div>
+    <%end%>
+    </ul>
+  
+  </div>
+  <%end%>

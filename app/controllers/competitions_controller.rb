@@ -1,13 +1,13 @@
 class CompetitionsController < ApplicationController
 
   before_action :find_competition, only:[:show,:edit,:update,:destroy, :matchesgenerator]
-
+  before_action :authorized?
+  skip_before_action :authorized?, only: [:index]
 
   def index
     @competitions = Competition.all
   end
-
-
+  
   def new
     @competition = Competition.new
   end

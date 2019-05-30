@@ -46,26 +46,46 @@ class Match < ApplicationRecord
       # See if the other match has finishe
       if (self.sequence_no % 2) == 1
         search_sequence_no = self.sequence_no + 1
+        next_sequence_no = search_sequence_no / 2
       else 
         search_sequence_no = self.sequence_no - 1
+        next_sequence_no = self.sequence_no / 2
       end
       this_match_winner = self.winner 
       other_match = Match.where( "competition_id = ? and round_no = ? and sequence_no = ?", competition, round_no, search_sequence_no ).first
       if other_match 
         if this_match_winner && other_match.winner 
-          Match.create(home_team_id:this_match_winner, away_team_id:other_match_winner, round_no:self.round_no+1, sequence_no:self.sequence_no/2, competition_id:competition.id ) 
+          Match.create(home_team_id:this_match_winner.id, away_team_id:other_match.winner.id, round_no:self.round_no+1, sequence_no:next_sequence_no, competition_id:competition.id ) 
        end
-      end 
+      end
     end
   end
 
   def winner
-    if home_goals > away_goals
-      home_team 
-    elsif away_goals > home_goals 
-      away_team
+    if self.home_goals && self.away_goals
+      if self.home_goals > self.away_goals
+       self.home_team 
+     elsif self.away_goals > self.home_goals 
+       self.away_team
+     end
     end
   end
+
+  def match_result 
+    if self.home_goals then # The match has been played
+        return_result = "#{home_goals} / #{away_goals}"
+    end
+  end
+
+  def match_result_text 
+    if self.home_goals 
+      if winner
+        result= "Won by #{winner.name}"
+      else
+        result= "It is a draw"       
+      end
+    end  
+  end 
 
   def play_match( attack_team, defence_team )
     # Loop through the strikers, and see if they can score
@@ -91,7 +111,7 @@ class Match < ApplicationRecord
       # For each striker, get a number of shots, with an equal chance of
       # there being none, double, or the same
 
-      total_shots = ((midfield_skill / 100) + 1 ) * (rand 3)
+      total_shots = (((midfield_skill / 100) + 1 ) * (rand 3)+1)
       results[:shots]+=total_shots
 
        total_shots.times do
@@ -118,6 +138,11 @@ class Match < ApplicationRecord
              results[:saved]+=1
            end
         end # End the attacks loop
+
+        # Give each striker a 1 in 3 chance of scoring as a fluke
+        if (rand 3)==3 
+            total_goals+=1
+        end
 
       end # End the strikers loop
 
@@ -175,20 +200,26 @@ class Match < ApplicationRecord
 
     defender_qty.times do
       player = team.sort {|a,b| b.defender_skill <=> a.defender_skill}.first
-      team.delete(player)
-      MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Defender", skill_index:player.defender_skill)
+      if player
+        team.delete(player)
+         MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Defender", skill_index:player.defender_skill)
+      end
     end 
 
     midfield_qty.times do
       player = team.sort {|a,b| b.midfielder_skill <=> a.midfielder_skill}.first
-      team.delete(player)
-      MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Midfield", skill_index:player.midfielder_skill )
+      if player
+        team.delete(player)
+       MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Midfield", skill_index:player.midfielder_skill )
+      end 
     end
 
    striker_qty.times do
       player = team.sort {|a,b| b.striker_skill <=> a.striker_skill}.first
-      team.delete(player)
-      MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Striker", skill_index:player.striker_skill)
+      if player
+        team.delete(player)
+        MatchFormation.create( match_id:self.id,  team_id:this_team.id, player_id:player.id, position:"Striker", skill_index:player.striker_skill)
+      end 
     end
 
     end # No players in the team

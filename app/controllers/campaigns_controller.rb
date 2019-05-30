@@ -1,5 +1,7 @@
 class CampaignsController < ApplicationController
     before_action :find_campaign, only:[:show,:edit,:update,:destroy]
+    before_action :authorized?
+  skip_before_action :authorized?, only: [:index]
 
     def index
       @campaigns = Campaign.all
