@@ -14,6 +14,14 @@ class MatchesController < ApplicationController
 
     def update
       @match = Match.find(params[:id])
+      if params[:commit]== "Reset"
+        @match.reset
+      elsif params[:commit]=="Allocate"
+        @match.allocate
+      elsif params[:commit]=="Play"
+        @match.play
+      end
+
       redirect_to @match
     end
 

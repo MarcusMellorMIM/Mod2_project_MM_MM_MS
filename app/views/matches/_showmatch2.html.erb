@@ -1,0 +1,90 @@
+<p>
+<%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
+<% hidden_field_tag :btn_command, "Reset" %>
+<%= submit_tag "Reset" %>
+<% end %>
+</p>
+
+<p>
+<%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
+<% hidden_field_tag :btn_command, "Play" %>
+<%= submit_tag "Play" %>
+<% end %>
+</p>
+
+
+<div class = hometeam >
+<p>
+Playing for <%= link_to @match.home_team.name, @match.home_team  %> in a 4.4.2 formation
+</p>
+<ul>
+<% @match.match_formations.select {|mf| mf.team==@match.home_team}.each do |hp| %>
+<li><%= link_to "#{hp.position} #{hp.player.name} with #{hp.skill_index} skill index", hp.player %></li>
+<% end %>
+</ul>
+
+</div>
+
+<div class = awayteam >
+<p>
+Playing for <%= link_to @match.away_team.name, @match.away_team%> in a 4.4.2 formation
+</p>
+
+<ul>
+<% @match.match_formations.select {|mf| mf.team==@match.away_team}.each do |hp| %>
+<li><%= link_to "#{hp.position} #{hp.player.name} with #{hp.skill_index} skill index", hp.player %></li>
+<% end %>
+</ul>
+</div>
+
+
+
+<div class = statistics>
+<p>
+Statistics
+</p>
+
+<ul>
+
+    <li> 
+        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Goalkeeper"}.map {|p| p.skill_index}.sum > %>
+        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Goalkeeper"}.map {|p| p.skill_index}.sum  %>
+            <%= @match.home_team.name %> 
+        <% else %>
+            <%= @match.away_team_name %>
+        <% end %>
+        has the more qualified goalkeeper
+    </li>
+
+    <li> 
+        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Defender"}.map {|p| p.skill_index}.sum > %>
+        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Defender"}.map {|p| p.skill_index}.sum  %>
+            <%= @match.home_team.name %> 
+        <% else %>
+            <%= @match.away_team_name %>
+        <% end %>
+        has the strongest defence
+    </li>
+
+   <li> 
+        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Midfield"}.map {|p| p.skill_index}.sum > %>
+        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Midfield"}.map {|p| p.skill_index}.sum  %>
+            <%= @match.home_team.name %> 
+        <% else %>
+            <%= @match.away_team_name %>
+        <% end %>
+        has the most capable midfield
+    </li>
+
+
+   <li> 
+        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Striker"}.map {|p| p.skill_index}.sum > %>
+        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Striker"}.map {|p| p.skill_index}.sum  %>
+            <%= @match.home_team.name %> 
+        <% else %>
+            <%= @match.away_team_name %>
+        <% end %>
+        is more likely to attack
+    </li>
+
+</div>
