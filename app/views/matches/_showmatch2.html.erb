@@ -77,7 +77,7 @@ Statistics
         <% if @match.get_skills( @match.home_team, "Goalkeeper") > @match.get_skills( @match.away_team, "Goalkeeper")  %>
             <%= @match.home_team.name %> 
         <% else %>
-            <%= @match.away_team_name %>
+            <%= @match.away_team.name %>
         <% end %>
         has the more qualified goalkeeper
     </li>
@@ -86,7 +86,7 @@ Statistics
         <% if @match.get_skills( @match.home_team, "Defender") > @match.get_skills( @match.away_team, "Defender")  %>
             <%= @match.home_team.name %> 
         <% else %>
-            <%= @match.away_team_name %>
+            <%= @match.away_team.name %>
         <% end %>
         has the strongest defence
     </li>
@@ -95,7 +95,7 @@ Statistics
         <% if @match.get_skills( @match.home_team, "Midfield") > @match.get_skills( @match.away_team, "Midfield")  %>
             <%= @match.home_team.name %> 
         <% else %>
-            <%= @match.away_team_name %>
+            <%= @match.away_team.name %>
         <% end %>
         has the most capable midfield
     </li>
@@ -105,7 +105,7 @@ Statistics
         <% if @match.get_skills( @match.home_team, "Striker") > @match.get_skills( @match.away_team, "Striker")  %>
             <%= @match.home_team.name %> 
         <% else %>
-            <%= @match.away_team_name %>
+            <%= @match.away_team.name %>
         <% end %>
         is more likely to attack
     </li>
