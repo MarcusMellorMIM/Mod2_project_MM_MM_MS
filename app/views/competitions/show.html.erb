@@ -1,34 +1,37 @@
-<h1>competition:<%= @competition.name %></h1>
+<h2><%= @competition.name %>🏆</h2>
 
-    <%= button_to 'Edit competition', edit_competition_path(@competition), :method => :get %>
-    <%= button_to "Delete competition", { action: "destroy", id: @competition.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
+ 
+  <div class="button-box">
+    <%= button_to 'Edit competition', edit_competition_path(@competition), :method => :get, :class=>"button"  %>
+    <%= button_to "Delete competition", { action: "destroy", id: @competition.id }, method: :delete, data: { confirm: "Are you sure?"  }, :class=>"button"   %>
     <%= form_tag("/matchesgenerator", method: "POST") do %>
     <%= hidden_field_tag :id, @competition.id %>
-    <%= submit_tag "Generate Matches" %>
+    <%= submit_tag "Generate Matches", :class=>"button"  %>
     <% end %>
+  </div>
 
-<h2>teams play for <%=@competition.name%> </h2>
-<ul>
-<%@competition.campaigns.each do |campaign|%>
-   <li> <%=link_to campaign.team.name, campaign.team%></li>
+
+<h3>Teams in the competition:</h3>
+  <div class="competition-box"><%@competition.campaigns.each do |campaign|%>
+   <p> <%=link_to campaign.team.name, campaign.team%></p>
   <%end%>
-</ul>
+  </div>
 
   <%if @competition.matches.length == 0 %>
     <h2>Press Generate Matches to start the competition</h2>
   <%else%>
   
-   <p><%=@competition.matches.length%>  matches.</p>
+   <p><%=@competition.matches.length%>  Matches</p>
 
   <% counter = 0 %>
   <% no_of_rounds = @competition.largest_round_no %>
 
   <% no_of_rounds.times do %>
     <% counter = counter + 1%>
-    <div class=round >
+    <div class="round" >
       <ul>
       <% @competition.matches_by_round( counter ).each do |match| %>
-      <div class=match >
+      <div class="match" >
        <li><%=link_to match.home_team.name, match.home_team %> to play <%=link_to match.away_team.name, match.away_team %>  <%=link_to "[MATCH]", match%> <%= match.match_result_text %> <%= match.match_result %> </li>
        </div>
       <%end%>
