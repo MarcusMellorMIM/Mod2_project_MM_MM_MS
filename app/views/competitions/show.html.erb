@@ -1,4 +1,13 @@
 <h1>competition:<%= @competition.name %></h1>
+
+<% if @competition.teams.length == 0 %>
+  <h3>No teams play for this <%=@competition.name%></h3>
+  <% else %>
+   <% @competition.teams.each do |team| %>
+   <%= link_to team.name, team_path(team) %> 
+   <% end %>
+  <% end %></h3
+
 <h2>teams play for <%=@competition.name%> </h2>
 <%@competition.campaigns.each do |campaign|%>
    <ul> <%=link_to campaign.team.name, campaign.team%></ul>

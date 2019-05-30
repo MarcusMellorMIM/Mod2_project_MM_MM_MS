@@ -37,28 +37,32 @@ class CompetitionsController < ApplicationController
   end
 
   def update
-
-
-    @competition.teams.length >0
-    if @competition.campaigns.each do |campaign|
-      campaign.destroy
+    if @competition.teams.length > 0
+      @competition.campaigns.each do |campaign|
+        campaign.destroy
+      end 
     end 
-  end 
-  if params[:competition][:team_ids].length >1
-    team_ids = params[:competition][:team_ids].slice(1..params[:competition][:team_ids].length)
-    team_ids.each do |team_id|
-      Campaign.create(competition_id: @competition_id, team_id:team_id)
+    if params[:competition][:team_ids].length >1
+      team_ids = params[:competition][:team_ids].slice(1..params[:competition][:team_ids].length)
+      team_ids.each do |team_id|
+        Campaign.create(competition_id: @competition.id, team_id: team_id.to_i)
+      end 
     end 
-  end 
       @competition.update competition_params
       redirect_to @competition
-end 
+  end 
 
 
   def destroy
-    @competition.destroy
+    if @competition.teams.length >0 
+      @competition.campaigns.each do |campaign|
+     campaign.destroy
+     end
+    else
+      @competition.destroy
+    end 
     redirect_to competitions_path
-  end
+  end 
 
   def matchesgenerator
     @competition.generate_matches
