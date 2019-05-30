@@ -28,7 +28,8 @@ class PlayersController < ApplicationController
     
       redirect_to player_path(@player)
     else
-      render :new_player_path
+      flash[:errors]=@player.errors.full_messages
+      redirect_to new_player_path
     end
   end
 

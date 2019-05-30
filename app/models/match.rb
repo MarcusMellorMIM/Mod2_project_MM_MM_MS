@@ -43,7 +43,7 @@ class Match < ApplicationRecord
 
     # Now check if this is a tournament, and the other match has finished as well
     if self.competition.knockout 
-      # See if the other match has finishe
+      # See if the other match has finished
       if (self.sequence_no % 2) == 1
         search_sequence_no = self.sequence_no + 1
         next_sequence_no = search_sequence_no / 2
@@ -57,6 +57,8 @@ class Match < ApplicationRecord
         if this_match_winner && other_match.winner 
           Match.create(home_team_id:this_match_winner.id, away_team_id:other_match.winner.id, round_no:self.round_no+1, sequence_no:next_sequence_no, competition_id:competition.id ) 
        end
+      else # In this case, there isn't another match .... so probably odd - hence create a match with same team
+        Match.create(home_team_id:this_match_winner.id, away_team_id:this_match_winner.id, round_no:self.round_no+1, sequence_no:next_sequence_no, competition_id:competition.id ) 
       end
     end
   end

@@ -13,9 +13,12 @@ class SquadsController < ApplicationController
 
 
   def new
+
     @squad = Squad.new
-    @available_players = Player.all.select{|player| player.teams == []}
     @team = Team.find(params[:team_id])
+    search_option = params[:position]
+    @available_players = Player.order_unallocated_players( search_option )
+  
   end
 
   def show
