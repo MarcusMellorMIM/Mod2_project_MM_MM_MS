@@ -2,6 +2,8 @@ class SquadsController < ApplicationController
 
 
   before_action :find_squad, only:[:show,:edit,:update,:destroy]
+  before_action :authorized?
+  skip_before_action :authorized?, only: [:index]
 
 
   def index

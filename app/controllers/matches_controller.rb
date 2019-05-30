@@ -1,4 +1,6 @@
 class MatchesController < ApplicationController
+  before_action :authorized?
+  skip_before_action :authorized?, only: [:index]
     
     def index 
       @matches = Match.all 
