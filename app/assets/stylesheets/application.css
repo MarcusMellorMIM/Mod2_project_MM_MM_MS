@@ -52,7 +52,9 @@ a:hover {
   -moz-column-count: 5; /* Firefox */
   column-count: 5;
   column-rule-style: double;
-  text-shadow: 10px
+  text-shadow: 10px;
+  font-size: 15px;
+  
 }
 
 .home {
@@ -85,4 +87,13 @@ a:hover {
   font-variant: small-caps;
   font-weight: bold;
   color: black;
+}
+
+.copyright {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-weight: bold;
+  color: white;
+  font-size: 15px;
 }
