@@ -1,9 +1,29 @@
 <h1> Add Players to <%= @team.name %></h1>
 
+<div>
+<p> 
+Find the best
+<%= link_to "Goalkeeper", new_squad_path(team_id:@team.id, position:"Goalkeeper" ) %>
+<%= link_to "Defender", new_squad_path(team_id:@team.id, position:"Defender" ) %>
+<%= link_to "Midfielder", new_squad_path(team_id:@team.id, position:"Midfielder" ) %>
+<%= link_to "Striker", new_squad_path(team_id:@team.id, position:"Striker" ) %>
+</p>
+</div>
+
 <%= form_tag("/squads", method: "POST") %>
 <%= hidden_field_tag "team_id", @team.id %>
-<%= label_tag "Select Players:" %>
+<%= submit_tag "Add selected players" %>
+<ul>
 <% @available_players.each do |player| %>
-  <p><%= player.name %><%= check_box_tag 'player_ids[]', player.id %></p>
+  <li>
+    <%= player.name %>
+    Skills
+    <%= player.goalkeeper_skill%>
+    <%= player.defender_skill%>
+    <%= player.midfielder_skill%>
+    <%= player.striker_skill%>
+    <%= check_box_tag 'player_ids[]', player.id %>
+  </li>
 <% end %>
-<%= submit_tag "Add Players" %>
+</ul>
+<%= submit_tag "Add selected players" %>
