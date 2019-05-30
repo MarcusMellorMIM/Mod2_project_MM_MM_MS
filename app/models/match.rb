@@ -41,9 +41,32 @@ class Match < ApplicationRecord
     self.away_goals = play_match( self.away_team, self.home_team )
     self.save
 
+    # Now check if this is a tournament, and the other match has finished as well
+    if self.competition.knockout 
+      # See if the other match has finishe
+      if (self.sequence_no % 2) == 1
+        search_sequence_no = self.sequence_no + 1
+      else 
+        search_sequence_no = self.sequence_no - 1
+      end
+      this_match_winner = self.winner 
+      other_match = Match.where( "competition_id = ? and round_no = ? and sequence_no = ?", competition, round_no, search_sequence_no ).first
+      if other_match 
+        if this_match_winner && other_match.winner 
+          Match.create(home_team_id:this_match_winner, away_team_id:other_match_winner, round_no:self.round_no+1, sequence_no:self.sequence_no/2, competition_id:competition.id ) 
+       end
+      end 
+    end
   end
 
-  
+  def winner
+    if home_goals > away_goals
+      home_team 
+    elsif away_goals > home_goals 
+      away_team
+    end
+  end
+
   def play_match( attack_team, defence_team )
     # Loop through the strikers, and see if they can score
     strikers = get_players( attack_team, "Striker" )
