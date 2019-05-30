@@ -13,20 +13,11 @@ class SquadsController < ApplicationController
 
 
   def new
+
     @squad = Squad.new
     @team = Team.find(params[:team_id])
     search_option = params[:position]
-    if search_option == "Goalkeeper"
-      @available_players = Player.all.select{|player| player.teams == []}.sort {|a,b| b.goalkeeper_skill <=> a.goalkeeper_skill}     
-    elsif search_option == "Defender"
-      @available_players = Player.all.select{|player| player.teams == []}.sort {|a,b| b.defender_skill <=> a.defender_skill}           
-    elsif search_option == "Midfield"
-      @available_players = Player.all.select{|player| player.teams == []}.sort {|a,b| b.midfielder_skill <=> a.midfielder_skill}           
-    elsif search_option == "Striker"
-      @available_players = Player.all.select{|player| player.teams == []}.sort {|a,b| b.striker_skill <=> a.striker_skill}           
-    else
-      @available_players = Player.all.select{|player| player.teams == []} 
-    end 
+    @available_players = Player.order_unallocated_players( search_option )
   
   end
 
