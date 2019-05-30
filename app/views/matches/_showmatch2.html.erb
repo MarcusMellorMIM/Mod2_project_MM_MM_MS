@@ -5,20 +5,47 @@
 <% end %>
 </p>
 
-<p>
-<%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
-<% hidden_field_tag :btn_command, "Play" %>
-<%= submit_tag "Play" %>
-<% end %>
-</p>
 
+    <p>
+    <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
+    <% hidden_field_tag :btn_command, "Play" %>
+    <%= submit_tag "Play" %>
+    <% end %>
+    </p>
+
+<% if @match.home_goals %>
+
+    <p>
+    <% if @match.home_goals > @match.away_goals %>
+        <%= @match.home_team.name %> 
+        wins
+        <%= @match.home_goals %>
+        to
+        <%= @match.away_goals %>
+
+    <% elsif @match.home_goals < @match.away_goals %>
+        <%= @match.away_team.name %> 
+        wins
+        <%= @match.away_goals %>
+        to
+        <%= @match.home_goals %>
+                
+    <% else %>
+        Its a draw
+        <%= @match.home_goals %>
+        /
+        <%= @match.away_goals %>
+    <% end %>
+    <p>
+
+    <% end %>
 
 <div class = hometeam >
 <p>
 Playing for <%= link_to @match.home_team.name, @match.home_team  %> in a 4.4.2 formation
 </p>
 <ul>
-<% @match.match_formations.select {|mf| mf.team==@match.home_team}.each do |hp| %>
+<% @match.match_formations.select {|mf| mf.team_id==@match.home_team.id}.each do |hp| %>
 <li><%= link_to "#{hp.position} #{hp.player.name} with #{hp.skill_index} skill index", hp.player %></li>
 <% end %>
 </ul>
@@ -31,7 +58,7 @@ Playing for <%= link_to @match.away_team.name, @match.away_team%> in a 4.4.2 for
 </p>
 
 <ul>
-<% @match.match_formations.select {|mf| mf.team==@match.away_team}.each do |hp| %>
+<% @match.match_formations.select {|mf| mf.team_id==@match.away_team.id}.each do |hp| %>
 <li><%= link_to "#{hp.position} #{hp.player.name} with #{hp.skill_index} skill index", hp.player %></li>
 <% end %>
 </ul>
@@ -47,8 +74,7 @@ Statistics
 <ul>
 
     <li> 
-        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Goalkeeper"}.map {|p| p.skill_index}.sum > %>
-        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Goalkeeper"}.map {|p| p.skill_index}.sum  %>
+        <% if @match.get_skills( @match.home_team, "Goalkeeper") > @match.get_skills( @match.away_team, "Goalkeeper")  %>
             <%= @match.home_team.name %> 
         <% else %>
             <%= @match.away_team_name %>
@@ -57,8 +83,7 @@ Statistics
     </li>
 
     <li> 
-        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Defender"}.map {|p| p.skill_index}.sum > %>
-        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Defender"}.map {|p| p.skill_index}.sum  %>
+        <% if @match.get_skills( @match.home_team, "Defender") > @match.get_skills( @match.away_team, "Defender")  %>
             <%= @match.home_team.name %> 
         <% else %>
             <%= @match.away_team_name %>
@@ -67,8 +92,7 @@ Statistics
     </li>
 
    <li> 
-        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Midfield"}.map {|p| p.skill_index}.sum > %>
-        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Midfield"}.map {|p| p.skill_index}.sum  %>
+        <% if @match.get_skills( @match.home_team, "Midfield") > @match.get_skills( @match.away_team, "Midfield")  %>
             <%= @match.home_team.name %> 
         <% else %>
             <%= @match.away_team_name %>
@@ -78,8 +102,7 @@ Statistics
 
 
    <li> 
-        <% if @match.match_formations.select {|mf| mf.team == @match.home_team && mf.position == "Striker"}.map {|p| p.skill_index}.sum > %>
-        <%   @match.match_formations.select {|mf| mf.team == @match.away_team && mf.position == "Striker"}.map {|p| p.skill_index}.sum  %>
+        <% if @match.get_skills( @match.home_team, "Striker") > @match.get_skills( @match.away_team, "Striker")  %>
             <%= @match.home_team.name %> 
         <% else %>
             <%= @match.away_team_name %>
