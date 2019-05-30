@@ -1,6 +1,6 @@
 <h1>All Competitions ⚽️</h1>
+<%= button_to 'Create a new competition', new_competition_path, :method => :get  %>
 <% @competitions.each do |competition| %>
     <ul><li><%= link_to competition.name, competition %></li></ul>
   <% end %>
-  <%= link_to "create a new competition", new_competition_path%>
   

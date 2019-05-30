@@ -2,12 +2,10 @@ class CompetitionsController < ApplicationController
 
   before_action :find_competition, only:[:show,:edit,:update,:destroy, :matchesgenerator]
 
-
   def index
     @competitions = Competition.all
   end
-
-
+  
   def new
     @competition = Competition.new
   end
