@@ -1,4 +1,5 @@
 class Player < ApplicationRecord
+  validates :name, presence: true, uniqueness: true
   has_many :squads
   has_many :teams, through: :squads
   has_many :campaigns, through: :teams
