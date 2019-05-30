@@ -71,6 +71,22 @@ class Match < ApplicationRecord
     end
   end
 
+  def match_result 
+    if self.home_goals then # The match has been played
+        return_result = "#{home_goals} / #{away_goals}"
+    end
+  end
+
+  def match_result_text 
+    if self.home_goals 
+      if winner
+        result= "Won by #{winner.name}"
+      else
+        result= "It is a draw"       
+      end
+    end  
+  end 
+
   def play_match( attack_team, defence_team )
     # Loop through the strikers, and see if they can score
     strikers = get_players( attack_team, "Striker" )

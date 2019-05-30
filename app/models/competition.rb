@@ -5,6 +5,15 @@ class Competition < ApplicationRecord
   has_many :squads, through: :teams
   has_many :players, through: :squads 
 
+  def matches_by_round( search_round_no )
+    self.matches.select { |m| m.round_no == search_round_no }
+  end
+
+  def largest_round_no 
+    matches.max {|m| m.round_no }.round_no
+  end 
+
+
   def generate_matches 
 
     # Clear the matches, already created .... really important that the web page does not run this

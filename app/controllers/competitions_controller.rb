@@ -4,12 +4,10 @@ class CompetitionsController < ApplicationController
   before_action :authorized?
   skip_before_action :authorized?, only: [:index]
 
-
   def index
     @competitions = Competition.all
   end
-
-
+  
   def new
     @competition = Competition.new
   end
