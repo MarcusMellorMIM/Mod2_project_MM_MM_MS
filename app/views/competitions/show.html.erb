@@ -20,16 +20,19 @@
   
    <p><%=@competition.matches.length%>  matches.</p>
 
+  <% counter = 0 %>
+  <% no_of_rounds = @competition.largest_round_no %>
 
-  <div class=round_no >
-
-    <ul>
-     <% @competition.matches.each do |match| %>
-     <div class=match >
-      <li><%=link_to match.home_team.name, match.home_team %> to play <%=link_to match.away_team.name, match.away_team %> <%= match.match_result_text %> <%= match.match_result %> <%=link_to "[MATCH]", match%></li>
-      </div>
-    <%end%>
-    </ul>
-  
-  </div>
-  <%end%>
+  <% no_of_rounds.times do %>
+    <% counter = counter + 1%>
+    <div class=round >
+      <ul>
+      <% @competition.matches_by_round( counter ).each do |match| %>
+      <div class=match >
+       <li><%=link_to match.home_team.name, match.home_team %> to play <%=link_to match.away_team.name, match.away_team %>  <%=link_to "[MATCH]", match%> <%= match.match_result_text %> <%= match.match_result %> </li>
+       </div>
+      <%end%>
+      </ul>  
+    </div>
+   <%end%>
+   <% end %>

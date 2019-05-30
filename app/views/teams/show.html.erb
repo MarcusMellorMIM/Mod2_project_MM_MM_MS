@@ -3,7 +3,23 @@
 <%= button_to 'Edit Team', edit_team_path(@team), :method => :get %>
 <%= button_to "Delete Team", { action: "destroy", id: @team.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
 
-<h3>Squad:</h3>
+<div class="add-players-form">
+<%= form_tag("/squads/new", method: "GET") do %>
+<%= hidden_field_tag :team_id, @team.id%>
+<%= hidden_field_tag :position, "All" %>
+<%= submit_tag "Add players to this team"%>
+<% end %>
+</div>
+
+<div class="join-competition-form">
+  <%= form_tag("/campaigns/new", method: "GET") do%>
+  <%= hidden_field_tag :team_id, @team.id%>
+  <%= submit_tag "Join in a competition"%>
+  <% end %>
+</div>
+
+<div class=players >
+<h3>Players:</h3>
  <% if @team.players.length == 0 %>
   "This Team does not have players"
   <% else %>
@@ -11,34 +27,26 @@
    <% @team.squads.each do |squad| %>
    <li>
       <%= link_to squad.player.name, player_path(squad.player) %>
-          <%= button_to "Remove player from the squad", squad, :method => :delete %>
+      <%= link_to "[Remove]", squad, method: :delete %>
       <% end %>
     </li>
   <% end %>
   </ul>
-  <br>
-<div class="add-players-form">
-<%= form_tag("/squads/new", method: "GET") do %>
-<%= hidden_field_tag :team_id, @team.id%>
-<%= submit_tag "Add players to this team"%>
-<% end %>
 </div>
 
+<div class=competitions >
 <h3>Competitions: </h3>
 <% if @team.competitions.length == 0 %>
   "This Team is not participating in any competition"
   <% else %>
+  <ul>
    <% @team.competitions.each do |competition| %>
-   <p><%= link_to competition.name, competition_path(competition) %></p>
+   <li><%= link_to competition.name, competition_path(competition) %></li>
    <% end %>
+   </ul>
   <% end %>
-
-<div class="join-competition-form">
-<%= form_tag("/campaigns/new", method: "GET") do%>
-<%= hidden_field_tag :team_id, @team.id%>
-<%= submit_tag "Join in a competition"%>
-<% end %>
 </div>
+
 
 <%# <%= button_to 'Edit Player', edit_player_path(@player), :method => :get %>
 <%# <%= button_to "Delete Player", { action: "destroy", id: @player.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
