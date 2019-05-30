@@ -12,6 +12,9 @@ class Match < ApplicationRecord
   def reset
     # Initialise the models
     self.match_formations.destroy_all
+    self.home_goals=nil
+    self.away_goals=nil
+    self.save
   end
 
   def allocate
@@ -22,7 +25,7 @@ class Match < ApplicationRecord
     get_formation( self.home_team )
     get_formation ( self.away_team )
 # Once we have the team setup, we can store in matches.formation or keep in memory
-  end 
+  end
 
 
   def play 
@@ -33,8 +36,81 @@ class Match < ApplicationRecord
     # We store the plays, into memory or a class object
     
     # At the end, if we don't have a class .... we can save the scores, allocating points.
-    
+
+    self.home_goals = play_match( self.home_team, self.away_team )
+    self.away_goals = play_match( self.away_team, self.home_team )
+    self.save
+
   end
+
+  
+  def play_match( attack_team, defence_team )
+    # Loop through the strikers, and see if they can score
+    strikers = get_players( attack_team, "Striker" )
+    midfield_skill = get_skills( attack_team, "Midfield")
+    defence_skill = get_skills( defence_team, "Defence")
+    goalkeeper_skill = get_skills( defence_team, "Goalkeeper")
+
+    counter=0
+    results = {
+      shots:0,
+      goals:0,
+      defended:0,
+      offtarget:0,
+      saved:0,
+      midfieldskill:midfield_skill
+    }
+
+    total_goals = 0
+
+    strikers.each do |striker|
+      
+      # For each striker, get a number of shots, with an equal chance of
+      # there being none, double, or the same
+
+      total_shots = ((midfield_skill / 100) + 1 ) * (rand 3)
+      results[:shots]+=total_shots
+
+       total_shots.times do
+           ontarget = true
+
+         # Did they get past the defence ?
+           if striker.skill_index * (rand 5) < defence_skill * (rand 5)
+             ontarget = false
+             results[:defended]+=1
+           end
+
+         # Did they shoot on target ?
+           if (rand 5) == 0 && ontarget
+             ontarget = false
+             results[:offtarget]+=1
+           end
+         # Did the goaly save it ?
+           if striker.skill_index + (rand 100) > goalkeeper_skill + (rand 100) && ontarget
+             # GOOOOOOOOOOAAAAAAAAAAAALLLLLLLLLLLLL
+             total_goals += 1
+             results[:goals]+=1
+           else 
+             ontarget = false
+             results[:saved]+=1
+           end
+        end # End the attacks loop
+
+      end # End the strikers loop
+
+    #results # Return the total goals 
+      total_goals
+
+    end # End the helper method
+
+  def get_players( search_team, search_position )
+    match_formations.select {|mf| mf.team_id == search_team.id && mf.position == search_position}
+  end
+
+  def get_skills( search_team, search_position)
+    get_players( search_team, search_position ).map {|p| p.skill_index}.sum
+  end 
+
 
   def get_formation( this_team )
 # The goalkeeper is the highest rating goalkeeper
