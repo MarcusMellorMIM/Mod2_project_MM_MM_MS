@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :matches
   resources :squads, only: [:new, :create, :edit, :update, :destroy]
   resources :players
+  post '/matchesgenerator' => "competitions#matchesgenerator"
   
  
   get '/', to: 'statics#home', as: "home_page"
