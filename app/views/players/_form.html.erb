@@ -1,3 +1,4 @@
+<div class="competition-box-index" >
 <%= form_for @player do |f| %>
   <%= f.label :name  %>
   <%= f.text_field :name %>
@@ -51,6 +52,7 @@
   <br>
   <br>
 
-  <%= f.submit %>
+  <%= f.submit :class=>"button" %>
 
 <% end %>
+</div>
