@@ -29,13 +29,11 @@
   <% no_of_rounds.times do %>
     <% counter = counter + 1%>
     <div class="round" >
-      <ul>
       <% @competition.matches_by_round( counter ).each do |match| %>
       <div class="match" >
-       <li><%=link_to match.home_team.name, match.home_team %> to play <%=link_to match.away_team.name, match.away_team %>  <%=link_to "[MATCH]", match%> <%= match.match_result_text %> <%= match.match_result %> </li>
+       <p><%=link_to match.home_team.name, match.home_team %> X <%=link_to match.away_team.name, match.away_team %>  <%=button_to "Play", match, :method => :get, :class=>"btn btn-secondary btn-sm"%> <%= match.match_result_text %> <%= match.match_result %> </p>
        </div>
       <%end%>
-      </ul>  
     </div>
    <%end%>
    <% end %>

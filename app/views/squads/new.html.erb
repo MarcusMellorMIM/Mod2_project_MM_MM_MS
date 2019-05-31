@@ -1,21 +1,22 @@
-<h1> Add Players to <%= @team.name %></h1>
+<h2> Add Players to <%= @team.name %> ⚽️</h2>
 
-<div>
-<p> 
-Find the best
-<%= link_to "Goalkeeper", new_squad_path(team_id:@team.id, position:"Goalkeeper" ) %>
-<%= link_to "Defender", new_squad_path(team_id:@team.id, position:"Defender" ) %>
-<%= link_to "Midfielder", new_squad_path(team_id:@team.id, position:"Midfield" ) %>
-<%= link_to "Striker", new_squad_path(team_id:@team.id, position:"Striker" ) %>
-</p>
-</div>
+Find by position:
+<button type="button" class="btn btn-outline-success"><%= link_to "Goalkeeper", new_squad_path(team_id:@team.id, position:"Goalkeeper" ) %></button>
+<button type="button" class="btn btn-outline-success"><%= link_to "Defender", new_squad_path(team_id:@team.id, position:"Defender" ) %></button>
+<button type="button" class="btn btn-outline-success"><%= link_to "Midfielder", new_squad_path(team_id:@team.id, position:"Midfield" ) %></button>
+<button type="button" class="btn btn-outline-success"><%= link_to "Striker", new_squad_path(team_id:@team.id, position:"Striker" ) %></button>
+
+<br>
+<br>
 
 <%= form_tag("/squads", method: "POST") %>
 <%= hidden_field_tag "team_id", @team.id %>
 <%= submit_tag "Add selected players" %>
-<ul>
+
+<br>
+<br>
 <% @available_players.each do |player| %>
-  <li>
+  <p>
     <%= player.name %>
     Skills
     <%= player.goalkeeper_skill%>
@@ -23,7 +24,6 @@ Find the best
     <%= player.midfielder_skill%>
     <%= player.striker_skill%>
     <%= check_box_tag 'player_ids[]', player.id %>
-  </li>
+  </p>
 <% end %>
-</ul>
 <%= submit_tag "Add selected players" %>

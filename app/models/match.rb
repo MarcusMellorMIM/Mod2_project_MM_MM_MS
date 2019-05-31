@@ -75,7 +75,7 @@ class Match < ApplicationRecord
 
   def match_result 
     if self.home_goals then # The match has been played
-        return_result = "#{home_goals} / #{away_goals}"
+        return_result = "#{home_goals} - #{away_goals}"
     end
   end
 

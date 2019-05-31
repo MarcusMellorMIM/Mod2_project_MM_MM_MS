@@ -1,7 +1,9 @@
-<h1>All Teams ⚽️</h1>
+<h2>All Teams ⚽️</h2>
 
-<%= button_to 'Create a Team', new_team_path, :method => :get  %>
+<%= button_to 'Create a Team', new_team_path, :method => :get, :class=>"button"  %>
 
+<div class="competition-box">
 <% @teams.each do |team| %>
   <p><%= link_to team.name, team %></p>
 <% end %>
+</div>
