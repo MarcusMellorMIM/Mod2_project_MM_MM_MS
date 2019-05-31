@@ -56,6 +56,21 @@ a:hover {
   column-rule-style: double;
   text-shadow: 10px;
   font-size: 15px;
+  background-color: lightgray;
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 40px;
+}
+
+.players_index2 {
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+  column-rule-style: double;
+  text-shadow: 10px;
+  font-size: 15px;
+  background-color: lightgray;
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 40px;
 }
 
 .home {
