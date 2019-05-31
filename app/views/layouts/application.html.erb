@@ -48,16 +48,17 @@
       </nav>
   <% end %>
 
-
-  <h1>⚽EasyPitch⚽</h1>
-
-  <% if flash[:errors] %>
-        <% flash[:errors].each do |error| %>
-          <p style="color: red"><%= error %></p> <% end %>
-      <% end %>
-    <%= yield %>
-  
-  <p class="copyright">&copy; 2019 FlatIron School London 042219 - Marco Miranda, Marcus Mellor & Miao Shan<p>
-
+  <div class="m-1">
+    <h1>⚽EasyPitch⚽</h1>
+  </div>
+  <div class="m-3">
+    <% if flash[:errors] %>
+          <% flash[:errors].each do |error| %>
+            <p style="color: red"><%= error %></p> <% end %>
+        <% end %>
+      <%= yield %>
+    
+    <p class="copyright">&copy; 2019 FlatIron School London 042219 - Marco Miranda, Marcus Mellor & Miao Shan<p>
+  </div>
   </body>
 </html>
