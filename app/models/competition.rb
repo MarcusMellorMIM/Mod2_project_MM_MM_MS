@@ -12,7 +12,7 @@ class Competition < ApplicationRecord
   end
 
   def largest_round_no 
-    matches.max {|m| m.round_no }.round_no
+    matches.map {|m| m.round_no }.max
   end 
 
 
