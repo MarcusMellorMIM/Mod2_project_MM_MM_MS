@@ -1,6 +1,8 @@
 <h1>All Players ⚽️</h1>
-<%= link_to "female players", controller: "players", gender: "Female" %>
-<%= link_to "male players", controller: "players", gender: "Male" %>
+
+Find by gender:
+<button type="button" class="btn btn-outline-success"><%= link_to "Female Players", controller: "players", gender: "Female" %></button>
+<button type="button" class="btn btn-outline-success"><%= link_to "Male Players", controller: "players", gender: "Male" %></button>
 
 <div class="players_index">
   <% @players.each do |player| %>
