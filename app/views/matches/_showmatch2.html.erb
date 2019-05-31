@@ -1,40 +1,20 @@
-<<<<<<< HEAD
 <% if @match.replay_flag=='Y'%>
+<div class="button-box">
 <p>
 <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
 <% hidden_field_tag :btn_command, "Reset" %>
-<%= submit_tag "Reset" %>
+<%= submit_tag "Reset", :class=>"button" %>
 <% end %>
 </p>
 
 <p>
 <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
 <% hidden_field_tag :btn_command, "Play" %>
-<%= submit_tag "Play" %>
+<%= submit_tag "Play", :class=>"button" %>
 <% end %>
 </p>
+</div>
 <% end %>
-=======
-    <div class="button-box">
-        <p>
-        <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
-        <% hidden_field_tag :btn_command, "Reset" %>
-        <%= submit_tag "Reset", :class=>"button" %>
-        <% end %>
-        </p>
-
-
-        <p>
-        <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
-        <% hidden_field_tag :btn_command, "Play" %>
-        <%= submit_tag "Play", :class=>"button" %>
-        <% end %>
-        </p>
-    </div>
-    <br>
-
-
->>>>>>> marco_css
 
 <% if @match.home_goals %>
 <div class="competition-box-index">
