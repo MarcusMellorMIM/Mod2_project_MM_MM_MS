@@ -18,6 +18,8 @@ class Match < ApplicationRecord
   end
 
   def allocate
+
+    if replay_flag=='Y'
 # Initialise the models, to be sure
     reset
 # Ok, my idea is we pretend a formation, so in future we can set this on the model
@@ -25,7 +27,8 @@ class Match < ApplicationRecord
     get_formation( self.home_team )
     get_formation ( self.away_team )
 # Once we have the team setup, we can store in matches.formation or keep in memory
-  end
+    end # End the check on if a match can be replayed.
+end
 
 
   def play 
@@ -36,31 +39,54 @@ class Match < ApplicationRecord
     # We store the plays, into memory or a class object
     
     # At the end, if we don't have a class .... we can save the scores, allocating points.
+    if replay_flag=='Y'
 
-    self.home_goals = play_match( self.home_team, self.away_team )
-    self.away_goals = play_match( self.away_team, self.home_team )
-    self.save
+      self.home_goals = play_match( self.home_team, self.away_team )
+      self.away_goals = play_match( self.away_team, self.home_team )
+      self.save
 
     # Now check if this is a tournament, and the other match has finished as well
-    if self.competition.knockout 
-      # See if the other match has finished
-      if (self.sequence_no % 2) == 1
-        search_sequence_no = self.sequence_no + 1
-        next_sequence_no = search_sequence_no / 2
-      else 
-        search_sequence_no = self.sequence_no - 1
-        next_sequence_no = self.sequence_no / 2
-      end
-      this_match_winner = self.winner 
-      other_match = Match.where( "competition_id = ? and round_no = ? and sequence_no = ?", competition, round_no, search_sequence_no ).first
-      if other_match 
-        if this_match_winner && other_match.winner 
-          Match.create(home_team_id:this_match_winner.id, away_team_id:other_match.winner.id, round_no:self.round_no+1, sequence_no:next_sequence_no, competition_id:competition.id ) 
-       end
-      else # In this case, there isn't another match .... so probably odd - hence create a match with same team
-        Match.create(home_team_id:this_match_winner.id, away_team_id:this_match_winner.id, round_no:self.round_no+1, sequence_no:next_sequence_no, competition_id:competition.id ) 
-      end
-    end
+    # as long as there is a winner
+    if self.competition.knockout && home_goals != away_goals
+      # See if this is the end of the tournemant
+      # So, count the number of teams in round 1, make sure mod%2, then halve it.
+      # this is the max_round_no ..... so, if we are on that ... we do not generate any more
+      # match records.
+      max_round_no = competition.matches.select { |m| m.round_no==1 }.length
+
+      if round_no < max_round_no # this means we can create another round
+  
+        # See if the other match has finished
+         if (self.sequence_no % 2) == 1
+          search_sequence_no = self.sequence_no + 1
+          next_sequence_no = search_sequence_no / 2
+        else 
+          search_sequence_no = self.sequence_no - 1
+          next_sequence_no = self.sequence_no / 2
+        end
+
+        this_match_winner = self.winner 
+        other_match = Match.where( "competition_id = ? and round_no = ? and sequence_no = ?", competition, round_no, search_sequence_no ).first
+        if other_match 
+
+          if this_match_winner && other_match.winner
+            self.replay_flag='N'
+            self.save
+            other_match.replay_flag='N'
+            other_match.save
+            Match.create(home_team_id:this_match_winner.id, away_team_id:other_match.winner.id, round_no:self.round_no+1, sequence_no:next_sequence_no, competition_id:competition.id, replay_flag:'Y' ) 
+            other_match.save
+            self.save
+          end
+
+        else # In this case, there isn't another match .... so probably odd - hence create a match with same team
+           self.replay_flag='N'
+           self.save 
+           Match.create(home_team_id:this_match_winner.id, away_team_id:this_match_winner.id, round_no:self.round_no+1, sequence_no:next_sequence_no, competition_id:competition.id, replay_flag:'Y' ) 
+          end
+     end
+    end # End of the check if this is the last round.
+  end # end the replay check
   end
 
   def winner
