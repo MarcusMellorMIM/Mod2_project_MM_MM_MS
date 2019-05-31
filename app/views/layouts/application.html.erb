@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FootballApp</title>
+    <title>EasyPitch</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,31 +13,52 @@
   <body>
 
   <% if logged_in?  %>
-    <p>
-      Hello, <%= current_user.username %>!
-    <button type="button" class="btn btn-outline-success"><%= link_to "Logout", sessions_path, method: :delete %></button>
-    </p>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="<%= home_page_path %>">Home</a>
+            <a class="nav-item nav-link" href="<%= players_path %>">Players</a>
+            <a class="nav-item nav-link" href="<%= teams_path %>">Teams</a>
+            <a class="nav-item nav-link" href="<%= competitions_path %>">Competitions</a>
+          </div>
+        </div>
+      </nav>
+      <div class="logout">
+          Hello, <%= current_user.username %>!
+          <button type="button" class="btn btn-success"><%= link_to "Logout", sessions_path, method: :delete %></button>
+      </div>
   <% else %>
-    <button type="button" class="btn btn-outline-success"><%= link_to "Login", login_path %></button>
-    <button type="button" class="btn btn-outline-success"><%= link_to "Create an Account", new_user_path %></button>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="<%= home_page_path %>">Home</a>
+            <a class="nav-item nav-link" href="<%= players_path %>">Players</a>
+            <a class="nav-item nav-link" href="<%= teams_path %>">Teams</a>
+            <a class="nav-item nav-link" href="<%= competitions_path %>">Competitions</a>
+            <a class="nav-item nav-link" href="<%= login_path %>">Login</a>
+            <a class="nav-item nav-link" href="<%= new_user_path %>">Create an Account</a>
+          </div>
+        </div>
+      </nav>
   <% end %>
 
-
-  <h1>⚽EasyPitch⚽</h1>
-
-  <button type="button" class="btn btn-light"><%= link_to "Home", home_page_path, :class=>"text-success" %></button>
-  <button type="button" class="btn btn-light"><%= link_to "Players", players_path, :class=>"text-success" %></button>
-  <button type="button" class="btn btn-light"><%= link_to "Teams", teams_path, :class=>"text-success" %></button>
-  <button type="button" class="btn btn-light"><%= link_to "Competitions", competitions_path, :class=>"text-success" %></button>
-
-
-  <% if flash[:errors] %>
-        <% flash[:errors].each do |error| %>
-          <p style="color: red"><%= error %></p> <% end %>
-      <% end %>
-    <%= yield %>
-  
-  <p class="copyright">&copy; 2019 FlatIron School London 042219 - Marco Miranda, Marcus Mellor & Miao Shan<p>
-
+  <div class="m-1">
+    <h1>⚽EasyPitch⚽</h1>
+  </div>
+  <div class="m-3">
+    <% if flash[:errors] %>
+          <% flash[:errors].each do |error| %>
+            <p style="color: red"><%= error %></p> <% end %>
+        <% end %>
+      <%= yield %>
+    
+    <p class="copyright">&copy; 2019 FlatIron School London 042219 - Marco Miranda, Marcus Mellor & Miao Shan<p>
+  </div>
   </body>
 </html>

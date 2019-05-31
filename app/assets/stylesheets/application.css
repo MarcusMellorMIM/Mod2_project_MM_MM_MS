@@ -28,6 +28,12 @@
   height: 100%;
 }
 
+* {
+  font-weight: bold;
+  font-size: 20px;
+ 
+}
+
 a:link {
   color: black;
 
@@ -41,11 +47,7 @@ a:hover {
   color: white;
 }
 
-* {
-  font-weight: bold;
-  font-size: 20px;
-  
-}
+
 
 .players_index {
   -webkit-column-count: 5; /* Chrome, Safari, Opera */
@@ -54,7 +56,21 @@ a:hover {
   column-rule-style: double;
   text-shadow: 10px;
   font-size: 15px;
-  
+  background-color: lightgray;
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 40px;
+}
+
+.players_index2 {
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+  column-rule-style: double;
+  text-shadow: 10px;
+  font-size: 15px;
+  background-color: lightgray;
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 40px;
 }
 
 .home {
@@ -96,4 +112,70 @@ a:hover {
   font-weight: bold;
   color: white;
   font-size: 15px;
+}
+
+.button {
+  border-radius: 10px;
+  color: #28a745;
+  padding: 5px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  position: relative; 
+  display: inline;
+}
+
+.button-box {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.competition-box {
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+  column-rule-style: double;
+  box-sizing: border-box;
+  height: auto;
+  width: 500px;
+  padding: 30px;  
+  background-color: lightgray;
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 40px;
+}
+
+.competition-box-index {
+  -webkit-column-count: 1; /* Chrome, Safari, Opera */
+  -moz-column-count: 1; /* Firefox */
+  column-count: 1;
+  box-sizing: border-box;
+  height: auto;
+  width: 500px;
+  padding: 30px;  
+  background-color: lightgray;
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 40px;
+}
+
+
+
+.match {
+  -webkit-column-count: 1; /* Chrome, Safari, Opera */
+  -moz-column-count: 1; /* Firefox */
+  column-count: 1;
+  box-sizing: border-box;
+  height: auto;
+  width: 500px;
+  padding: 20px;  
+  background-color: lightgray;
+  background: rgba(76, 175, 80, 0.5);
+  border-radius: 30px;
+}
+
+.logout {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
+
 }

@@ -1,31 +1,34 @@
-<h1><%= @team.name %></h1>
+<h2><%= @team.name %> ⚽️</h2>
 
-<%= button_to 'Edit Team', edit_team_path(@team), :method => :get %>
-<%= button_to "Delete Team", { action: "destroy", id: @team.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
+<div class="button-box">
+  <%= button_to 'Edit Team', edit_team_path(@team), :method => :get, :class=>"button" %>
+  <%= button_to "Delete Team", { action: "destroy", id: @team.id }, method: :delete, data: { confirm: "Are you sure?"  }, :class=>"button" %>
 
-<div class="add-players-form">
-<%= form_tag("/squads/new", method: "GET") do %>
-<%= hidden_field_tag :team_id, @team.id%>
-<%= hidden_field_tag :position, "All" %>
-<%= submit_tag "Add players to this team"%>
-<% end %>
-</div>
 
-<div class="join-competition-form">
-  <%= form_tag("/campaigns/new", method: "GET") do%>
+  <div class="add-players-form">
+  <%= form_tag("/squads/new", method: "GET") do %>
   <%= hidden_field_tag :team_id, @team.id%>
-  <%= submit_tag "Join in a competition"%>
+  <%= hidden_field_tag :position, "All" %>
+  <%= submit_tag "Add Player", :class=>"button"%>
   <% end %>
-</div>
+  </div>
 
-<div class=players >
+  <div class="join-competition-form">
+    <%= form_tag("/campaigns/new", method: "GET") do%>
+    <%= hidden_field_tag :team_id, @team.id%>
+    <%= submit_tag "Join in a Competition", :class=>"button"%>
+    <% end %>
+  </div>
+</div>
+<br>
+<div class="competition-box-index" >
 <h3>Players:</h3>
- <% if @team.players.length == 0 %>
+<% if @team.players.length == 0 %>
   "This Team does not have players"
   <% else %>
-   <ul>
-   <% @team.squads.each do |squad| %>
-   <li>
+  <ul>
+  <% @team.squads.each do |squad| %>
+  <li>
       <%= link_to squad.player.name, player_path(squad.player) %>
       <%= link_to "[Remove]", squad, method: :delete %>
       <% end %>
@@ -33,19 +36,20 @@
   <% end %>
   </ul>
 </div>
-
-<div class=competitions >
+<br>
+<div class="competition-box-index" >
 <h3>Competitions: </h3>
 <% if @team.competitions.length == 0 %>
   "This Team is not participating in any competition"
   <% else %>
   <ul>
-   <% @team.competitions.each do |competition| %>
-   <li><%= link_to competition.name, competition_path(competition) %></li>
-   <% end %>
-   </ul>
+  <% @team.competitions.each do |competition| %>
+  <li><%= link_to competition.name, competition_path(competition) %></li>
+  <% end %>
+  </ul>
   <% end %>
 </div>
+
 
 
 <%# <%= button_to 'Edit Player', edit_player_path(@player), :method => :get %>

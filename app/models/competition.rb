@@ -46,7 +46,7 @@ class Competition < ApplicationRecord
         else
           team2 = team1
         end 
-        match_hash = { competition_id: self.id, home_team_id:team1, away_team_id:team2, round_no: 1, sequence_no: counter   }
+        match_hash = { competition_id: self.id, home_team_id:team1, away_team_id:team2, round_no: 1, sequence_no: counter, replay_flag:'Y'   }
         match_array << match_hash 
       end
       match_array
@@ -70,7 +70,7 @@ class Competition < ApplicationRecord
       counter = 0
       inround_iterations.times do
         counter += 1
-        match_hash = { competition_id: self.id, home_team_id:team_array[home_index], away_team_id:team_array[away_index], round_no: round_no*2, sequence_no: counter   }
+        match_hash = { competition_id: self.id, home_team_id:team_array[home_index], away_team_id:team_array[away_index], round_no: round_no*2, sequence_no: counter, replay_flag:'Y'   }
         match_array << match_hash
         home_index=home_index+1 
         away_index=away_index-1
@@ -93,7 +93,7 @@ class Competition < ApplicationRecord
 # UPTO HERE .... THE FOLLOWING MAKES THE CODE STICK ... NEED RTO FIGURE IT OUT
     match2_array = []
     match_array.each do |match|
-      match_hash = { competition_id: self.id, home_team_id:match[:away_team_id], away_team_id:match[:home_team_id], round_no: match[:round_no]-1 }
+      match_hash = { competition_id: self.id, home_team_id:match[:away_team_id], away_team_id:match[:home_team_id], round_no: match[:round_no]-1, replay_flag:'Y' }
       match2_array << match_hash
     end 
 

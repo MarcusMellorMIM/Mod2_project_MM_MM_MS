@@ -1,6 +1,13 @@
 <h2>All Competitions 🏆</h2>
-<% @competitions.each do |competition| %>
-    <p><%= link_to competition.name, competition %></p>
+
+<div class="button-box">
+  <%= button_to 'Create a Competition', new_competition_path, :method => :get, :class=>"button"  %>
+</div>
+
+<div class="competition-box-index">
+  <% @competitions.each do |competition| %>
+      <p><%= link_to competition.name, competition %></p>
   <% end %>
-  <button type="button" class="btn btn-light"><%= link_to "Create a Competition", new_competition_path, :class=>"text-success" %></button>
+</div>
   
+
