@@ -4,7 +4,6 @@
 <%= button_to 'Create a Player', new_player_path, :method => :get, :class=>"button"  %>
 <br>
 
-
 <div class="players_index">
   <% @players.each do |player| %>
     <p><%= link_to player.name, player %></p>
