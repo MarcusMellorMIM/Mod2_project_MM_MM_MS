@@ -1,6 +1,6 @@
 <h1>All Players ⚽️</h1>
-<h2>Find players by gender</h2>
-
+<%= link_to "female players", controller: "players", gender: "Female" %>
+<%= link_to "male players", controller: "players", gender: "Male" %>
 
 <%= button_to 'Create a Player', new_player_path, :method => :get  %>
 <div class="players_index">

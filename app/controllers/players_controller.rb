@@ -4,7 +4,13 @@ class PlayersController < ApplicationController
   skip_before_action :authorized?, only: [:index]
 
   def index
-    @players = Player.all
+    if params[:gender]=="Female"
+      @players=Player.all.select{|player| player.gender=="Female"}
+    elsif params[:gender]=="Male"
+      @players=Player.all.select{|player| player.gender=="Male"}
+    else 
+      @players = Player.all
+    end 
   end
  
   def show
