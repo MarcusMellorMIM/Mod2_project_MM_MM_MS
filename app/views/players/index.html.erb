@@ -1,8 +1,8 @@
 <h1>All Players ⚽️</h1>
+<h2>Find players by gender</h2>
+
 
 <%= button_to 'Create a Player', new_player_path, :method => :get  %>
-
-
 <div class="players_index">
   <% @players.each do |player| %>
     <p><%= link_to player.name, player %></p>

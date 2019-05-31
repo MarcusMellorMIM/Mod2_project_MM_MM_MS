@@ -14,7 +14,7 @@ Team.destroy_all
 Competition.destroy_all
 
 
-100.times do
+80.times do
   Player.create(name: Faker::Name.unique.name, 
     dob: Faker::Date.birthday(18, 40), 
     goalkeeper_skill: Faker::Number.between(1, 100), 
@@ -30,17 +30,24 @@ end
   Team.create(name: Faker::Football.unique.team)
 end
 
-80.times do
-  Squad.create(team_id: Team.ids.sample, player_id: Player.ids.sample)
+# Loop through all players, and insert into squad
+
+Player.all.each do |player|
+  Squad.create(team_id: Team.ids.sample, player_id: player.id)
 end
 
-2.times do
-  Competition.create(name: Faker::Football.unique.competition, knockout: false)
+
+
+20.times do
+  Player.create(name: Faker::Name.unique.name, 
+    dob: Faker::Date.birthday(18, 40), 
+    goalkeeper_skill: Faker::Number.between(1, 100), 
+    defender_skill: Faker::Number.between(1, 100),
+    midfielder_skill: Faker::Number.between(1, 100),
+    striker_skill: Faker::Number.between(1, 100),
+    height_cm: Faker::Number.between(150, 210),
+    weight_kg: Faker::Number.between(60, 100)
+      )
 end
 
-
-
-10.times do 
-  Campaign.create(team_id: Team.ids.sample, competition_id: Competition.ids.sample)
-end
-
+# Then generate 20 more players
