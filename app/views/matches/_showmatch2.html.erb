@@ -1,3 +1,4 @@
+<% if @match.replay_flag=='Y'%>
 <p>
 <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
 <% hidden_field_tag :btn_command, "Reset" %>
@@ -5,13 +6,13 @@
 <% end %>
 </p>
 
-
-    <p>
-    <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
-    <% hidden_field_tag :btn_command, "Play" %>
-    <%= submit_tag "Play" %>
-    <% end %>
-    </p>
+<p>
+<%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
+<% hidden_field_tag :btn_command, "Play" %>
+<%= submit_tag "Play" %>
+<% end %>
+</p>
+<% end %>
 
 <% if @match.home_goals %>
 

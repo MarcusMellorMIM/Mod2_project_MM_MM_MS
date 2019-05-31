@@ -1,9 +1,11 @@
+<% if @match.replay_flag=='Y'%>
 <p>
 <%= form_tag match_path(@match), method: "patch", name: "edit_match", id: "edit_match" do %>
 <% hidden_field_tag :btn_command, "Allocate" %>
 <%= submit_tag "Allocate" %>
 <% end %>
 </p>
+<% end %>
 
 
 <div class = hometeam >
