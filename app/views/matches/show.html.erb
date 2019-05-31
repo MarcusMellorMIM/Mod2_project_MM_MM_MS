@@ -1,14 +1,13 @@
-<h1>
-Home <%= @match.home_team.name %>
-Away <%= @match.away_team.name %>
-</h1>
+<h2>
+<%= @match.home_team.name %> X <%= @match.away_team.name %>
+</h2>
 
 <p>
 Playing in the <%= link_to @match.competition.name, @match.competition %>
 <% if @match.competition.knockout %>
-knockout competition
+Knockout Competition
 <% else %>
-league
+League
 <% end %>
 </p>
 

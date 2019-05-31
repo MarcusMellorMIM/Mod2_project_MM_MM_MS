@@ -14,7 +14,7 @@ Team.destroy_all
 Competition.destroy_all
 
 
-80.times do
+160.times do
   Player.create(name: Faker::Name.unique.name, 
     dob: Faker::Date.birthday(18, 40), 
     gender: Faker::Gender.binary_type,
@@ -39,7 +39,7 @@ end
 
 
 
-20.times do
+40.times do
   Player.create(name: Faker::Name.unique.name, 
     dob: Faker::Date.birthday(18, 40), 
     goalkeeper_skill: Faker::Number.between(1, 100), 

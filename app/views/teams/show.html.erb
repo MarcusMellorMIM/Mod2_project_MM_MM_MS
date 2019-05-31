@@ -26,15 +26,15 @@
 <% if @team.players.length == 0 %>
   "This Team does not have players"
   <% else %>
-  <ul>
+
   <% @team.squads.each do |squad| %>
-  <li>
+  <p>
       <%= link_to squad.player.name, player_path(squad.player) %>
-      <%= link_to "[Remove]", squad, method: :delete %>
+      <button type="button" class="btn btn-outline-success"><%= link_to "Remove Player", squad, method: :delete %></button>
       <% end %>
-    </li>
+    </p>
   <% end %>
-  </ul>
+
 </div>
 <br>
 <div class="competition-box-index" >
@@ -42,11 +42,11 @@
 <% if @team.competitions.length == 0 %>
   "This Team is not participating in any competition"
   <% else %>
-  <ul>
+  
   <% @team.competitions.each do |competition| %>
-  <li><%= link_to competition.name, competition_path(competition) %></li>
+  <p><%= link_to competition.name, competition_path(competition) %></p>
   <% end %>
-  </ul>
+  
   <% end %>
 </div>
 

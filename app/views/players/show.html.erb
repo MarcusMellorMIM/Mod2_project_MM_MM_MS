@@ -1,22 +1,29 @@
-<h1><%= @player.name %></h1>
+<h2><%= @player.name %> ⚽️</h2>
 
-<h3>Team: <% if @player.teams.length == 0 %>
-  "This player does not have a team"
-  <% else %>
-   <% @player.teams.each do |team| %>
-   <%= link_to team.name, team_path(team) %> 
-   <% end %>
-  <% end %></h3>
+<div class="competition-box-index">
+  <h4>Team: <% if @player.teams.length == 0 %>
+    Free agent
+    <% else %>
+    <% @player.teams.each do |team| %>
+    <%= link_to team.name, team_path(team) %> 
+    <% end %>
+    <% end %>
+  </h4>
 
-<p>Date of Birth: <%= @player.dob %></p>
-<p>Gender: <%= @player.gender %></p>
-<p>Height: <%= @player.height_cm %>cm</p>
-<p>Weight: <%= @player.weight_kg %>kg</p>
-<br>
-<p>Goalkeeper Skills: <%= @player.goalkeeper_skill %></p>
-<p>Defender Skills: <%= @player.defender_skill %></p>
-<p>Midfielder Skills: <%= @player.midfielder_skill %></p>
-<p>Striker Skills: <%= @player.striker_skill %></p>
+  <p>Date of Birth: <%= @player.dob %></p>
+  <p>Gender: <%= @player.gender %></p>
+  <p>Height: <%= @player.height_cm %>cm</p>
+  <p>Weight: <%= @player.weight_kg %>kg</p>
+  <br>
+  <p>Goalkeeper Skills: <%= @player.goalkeeper_skill %></p>
+  <p>Defender Skills: <%= @player.defender_skill %></p>
+  <p>Midfielder Skills: <%= @player.midfielder_skill %></p>
+  <p>Striker Skills: <%= @player.striker_skill %></p>
+  <br>
+  <p>Overall Skills: <%= (@player.goalkeeper_skill + @player.defender_skill + @player.midfielder_skill + @player.striker_skill) / 4 %></p>
+</div>
 
-<%= button_to 'Edit Player', edit_player_path(@player), :method => :get %>
-<%= button_to "Delete Player", { action: "destroy", id: @player.id }, method: :delete, data: { confirm: "Are you sure?"  } %>
+<div class="button-box">
+<%= button_to 'Edit Player', edit_player_path(@player), :method => :get, :class=>"button" %>
+<%= button_to "Delete Player", { action: "destroy", id: @player.id }, method: :delete, data: { confirm: "Are you sure?"  }, :class=>"button"%>
+</div>

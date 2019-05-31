@@ -2,7 +2,7 @@
 
  
   <div class="button-box">
-    <%= button_to 'Add Teams', edit_competition_path(@competition), :method => :get, :class=>"button"  %>
+    <%= button_to 'Edit Competition', edit_competition_path(@competition), :method => :get, :class=>"button"  %>
     <%= button_to "Delete Competition", { action: "destroy", id: @competition.id }, method: :delete, data: { confirm: "Are you sure?"  }, :class=>"button"   %>
     <%= form_tag("/matchesgenerator", method: "POST") do %>
     <%= hidden_field_tag :id, @competition.id %>
