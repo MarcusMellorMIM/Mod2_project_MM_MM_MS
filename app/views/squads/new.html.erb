@@ -11,19 +11,20 @@ Find by position:
 
 <%= form_tag("/squads", method: "POST") %>
 <%= hidden_field_tag "team_id", @team.id %>
-<%= submit_tag "Add selected players" %>
+<%= submit_tag "Add selected players", :class=>"button" %>
 
 <br>
 <br>
+<div class="players_index2">
 <% @available_players.each do |player| %>
   <p>
     <%= player.name %>
-    Skills
-    <%= player.goalkeeper_skill%>
-    <%= player.defender_skill%>
-    <%= player.midfielder_skill%>
+    - Skills:
+    <%= player.goalkeeper_skill%>/
+    <%= player.defender_skill%>/
+    <%= player.midfielder_skill%>/
     <%= player.striker_skill%>
     <%= check_box_tag 'player_ids[]', player.id %>
   </p>
 <% end %>
-<%= submit_tag "Add selected players" %>
+</div>
