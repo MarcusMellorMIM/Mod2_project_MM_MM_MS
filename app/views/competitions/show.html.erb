@@ -2,8 +2,8 @@
 
  
   <div class="button-box">
-    <%= button_to 'Edit competition', edit_competition_path(@competition), :method => :get, :class=>"button"  %>
-    <%= button_to "Delete competition", { action: "destroy", id: @competition.id }, method: :delete, data: { confirm: "Are you sure?"  }, :class=>"button"   %>
+    <%= button_to 'Add Teams', edit_competition_path(@competition), :method => :get, :class=>"button"  %>
+    <%= button_to "Delete Competition", { action: "destroy", id: @competition.id }, method: :delete, data: { confirm: "Are you sure?"  }, :class=>"button"   %>
     <%= form_tag("/matchesgenerator", method: "POST") do %>
     <%= hidden_field_tag :id, @competition.id %>
     <%= submit_tag "Generate Matches", :class=>"button"  %>
@@ -18,7 +18,7 @@
   </div>
 
   <%if @competition.matches.length == 0 %>
-    <h2>Press Generate Matches to start the competition</h2>
+    <h3 class="text-danger" >Press Generate Matches to Start the Competition</h3>
   <%else%>
   
    <p><%=@competition.matches.length%>  Matches</p>

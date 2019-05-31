@@ -4,8 +4,10 @@
   <%= button_to 'Create a Competition', new_competition_path, :method => :get, :class=>"button"  %>
 </div>
 
-<% @competitions.each do |competition| %>
-    <p><%= link_to competition.name, competition %></p>
-<% end %>
+<div class="competition-box-index">
+  <% @competitions.each do |competition| %>
+      <p><%= link_to competition.name, competition %></p>
+  <% end %>
+</div>
   
 
